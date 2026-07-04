@@ -1,0 +1,10 @@
+services:
+  linkr-bot:
+    build: .
+    container_name: linkr-bot
+    restart: unless-stopped
+    env_file: .env
+    deploy:
+      resources:
+        limits:
+          memory: 256M
