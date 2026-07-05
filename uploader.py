@@ -45,7 +45,11 @@ async def get_server() -> str:
     if data.get("status") != "ok":
         raise RuntimeError(f"GoFile server error: {data}")
 
-    server = data["data"]["server"]
+    servers = data["data"].get("servers", [])
+    if not servers:
+        raise RuntimeError("No GoFile servers available")
+
+    server = servers[0]["name"]
     logger.info("GoFile server selected: %s", server)
     return server
 
